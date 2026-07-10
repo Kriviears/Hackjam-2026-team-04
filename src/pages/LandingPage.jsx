@@ -18,7 +18,9 @@ function LandingPage() {
         </div>
 
         <div className="auth-buttons">
-          <button className="login-btn">Sign In</button>
+        <Link to="/signin" className="login-btn">
+  Sign In
+</Link>
 
           <Link to="/get-started" className="register-btn">
             Get Started
