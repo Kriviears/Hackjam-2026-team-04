@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./AICoach.css";
 
 const questions = [
@@ -13,8 +14,11 @@ const questions = [
 ];
 
 function AICoach() {
+  const navigate = useNavigate();
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [input, setInput] = useState("");
+
   const [messages, setMessages] = useState([
     {
       sender: "ai",
@@ -29,34 +33,48 @@ function AICoach() {
   const handleContinue = () => {
     if (!input.trim()) return;
 
-    const userMessage = { sender: "user", text: input };
+    const userMessage = {
+      sender: "user",
+      text: input.trim(),
+    };
+
     const nextQuestionIndex = currentQuestion + 1;
 
     if (nextQuestionIndex < questions.length) {
-      setMessages([
-        ...messages,
+      setMessages((previousMessages) => [
+        ...previousMessages,
         userMessage,
         {
           sender: "ai",
           text: questions[nextQuestionIndex],
         },
       ]);
+
       setCurrentQuestion(nextQuestionIndex);
       setInput("");
     } else {
-      setMessages([
-        ...messages,
+      setMessages((previousMessages) => [
+        ...previousMessages,
         userMessage,
         {
           sender: "ai",
-          text: "Profile complete. Your personalized career roadmap is ready to generate.",
+          text: "Profile complete. Your personalized learner dashboard is ready.",
         },
       ]);
+
       setInput("");
+
+      setTimeout(() => {
+        navigate("/learners-dashboard");
+      }, 1200);
     }
   };
 
-  const progress = Math.round(((currentQuestion + 1) / questions.length) * 100);
+  const progress = Math.round(
+    ((currentQuestion + 1) / questions.length) * 100
+  );
+
+  const isLastQuestion = currentQuestion === questions.length - 1;
 
   return (
     <div className="ai-coach-page">
@@ -67,7 +85,7 @@ function AICoach() {
         </div>
 
         <div className="online-status">
-          <span></span>
+          <span />
           AI Online
         </div>
       </div>
@@ -75,21 +93,23 @@ function AICoach() {
       <main className="command-grid">
         <section className="ai-screen">
           <div className="screen-frame">
-            <div className="scan-line"></div>
+            <div className="scan-line" />
 
             <div className="ai-avatar">
               <div className="avatar-ring">
                 <div className="avatar-face">
                   <div className="eyes">
-                    <span></span>
-                    <span></span>
+                    <span />
+                    <span />
                   </div>
-                  <div className="mouth"></div>
+
+                  <div className="mouth" />
                 </div>
               </div>
             </div>
 
             <p className="ai-title">PERPATH AI MENTOR</p>
+
             <p className="ai-subtitle">
               Building your personalized career roadmap...
             </p>
@@ -100,7 +120,12 @@ function AICoach() {
           <div className="chat-header">
             <div>
               <p>Onboarding Sequence</p>
-              <h2>Question {Math.min(currentQuestion + 1, questions.length)} of {questions.length}</h2>
+
+              <h2>
+                Question{" "}
+                {Math.min(currentQuestion + 1, questions.length)} of{" "}
+                {questions.length}
+              </h2>
             </div>
 
             <div className="progress-badge">{progress}%</div>
@@ -110,14 +135,18 @@ function AICoach() {
             <div
               className="progress-glow"
               style={{ width: `${progress}%` }}
-            ></div>
+            />
           </div>
 
           <div className="messages">
             {messages.map((message, index) => (
               <div
-                key={index}
-                className={`message ${message.sender === "ai" ? "ai-message" : "user-message"}`}
+                key={`${message.sender}-${index}`}
+                className={
+                  message.sender === "ai"
+                    ? "ai-message"
+                    : "user-message"
+                }
               >
                 {message.text}
               </div>
@@ -126,38 +155,77 @@ function AICoach() {
 
           <div className="chat-input-area">
             <input
+              type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(event) => setInput(event.target.value)}
               placeholder="Type your answer..."
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleContinue();
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  handleContinue();
+                }
               }}
             />
 
-            <button onClick={handleContinue}>Continue</button>
+            <button type="button" onClick={handleContinue}>
+              {isLastQuestion ? "View My Dashboard" : "Continue"}
+            </button>
           </div>
         </section>
 
         <aside className="profile-status">
           <h3>Career Profile</h3>
 
-          <div className="status-item complete">✓ Account Created</div>
-          <div className={currentQuestion >= 1 ? "status-item complete" : "status-item"}>
+          <div className="status-item complete">
+            ✓ Account Created
+          </div>
+
+          <div
+            className={
+              currentQuestion >= 1
+                ? "status-item complete"
+                : "status-item"
+            }
+          >
             {currentQuestion >= 1 ? "✓" : "○"} Education
           </div>
-          <div className={currentQuestion >= 3 ? "status-item complete" : "status-item"}>
+
+          <div
+            className={
+              currentQuestion >= 3
+                ? "status-item complete"
+                : "status-item"
+            }
+          >
             {currentQuestion >= 3 ? "✓" : "○"} Career Goal
           </div>
-          <div className={currentQuestion >= 5 ? "status-item complete" : "status-item"}>
+
+          <div
+            className={
+              currentQuestion >= 5
+                ? "status-item complete"
+                : "status-item"
+            }
+          >
             {currentQuestion >= 5 ? "✓" : "○"} Skills
           </div>
-          <div className={currentQuestion >= 7 ? "status-item complete" : "status-item"}>
+
+          <div
+            className={
+              currentQuestion >= 7
+                ? "status-item complete"
+                : "status-item"
+            }
+          >
             {currentQuestion >= 7 ? "✓" : "○"} Mentor Match
           </div>
 
           <div className="mission-card">
             <p>Mission</p>
-            <h4>Build a personalized roadmap from learner to career-ready technologist.</h4>
+
+            <h4>
+              Build a personalized roadmap from learner to career-ready
+              technologist.
+            </h4>
           </div>
         </aside>
       </main>

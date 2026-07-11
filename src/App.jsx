@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import GetStarted from "./pages/GetStarted";
 import AICoach from "./pages/AICoach";
 import SignIn from "./pages/SignIn";
+import LearnersDashboard from "./pages/LearnersDashboard";
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +14,10 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/ai-coach" element={<AICoach />} />
+        <Route
+  path="/learners-dashboard"
+  element={<LearnersDashboard />}
+/>
       </Routes>
     </BrowserRouter>
   );
