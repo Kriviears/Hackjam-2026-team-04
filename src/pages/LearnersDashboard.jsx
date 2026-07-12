@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./LearnersDashboard.css";
 
 const roadmap = [
@@ -307,10 +308,11 @@ function WeeklyChart() {
 }
 
 function LearnersDashboard() {
-  const learnerName = "Tommy";
-
-  return (
-    <div className="learners-dashboard">
+    const navigate = useNavigate();
+    const learnerName = "Tommy";
+  
+    return (
+      <div className="learners-dashboard">
       <div className="dashboard-stars" />
       <div className="dashboard-grid" />
       <div className="purple-nebula" />
@@ -327,46 +329,88 @@ function LearnersDashboard() {
         </div>
 
         <nav className="sidebar-navigation">
-          <button className="nav-button active" type="button">
-            <span>⌂</span>
-            Dashboard
-          </button>
+  <button
+    className="nav-button active"
+    type="button"
+    onClick={() => navigate("/learners-dashboard")}
+  >
+    <span>🏠</span>
+    Dashboard
+  </button>
 
-          <button className="nav-button" type="button">
-            <span>◉</span>
-            AI Coach
-          </button>
+  <button
+    className="nav-button"
+    type="button"
+    onClick={() => navigate("/ai-coach")}
+  >
+    <span>🤖</span>
+    AI Coach
+  </button>
 
-          <button className="nav-button" type="button">
-            <span>♧</span>
-            Career Quest
-          </button>
+  <button
+    className="nav-button"
+    type="button"
+    onClick={() => navigate("/career-quest")}
+  >
+    <span>🎯</span>
+    Career Quest
+  </button>
 
-          <button className="nav-button" type="button">
-            <span>▤</span>
-            Learning Hub
-          </button>
+  <button
+    className="nav-button"
+    type="button"
+    onClick={() => navigate("/learning-hub")}
+  >
+    <span>📚</span>
+    Learning Hub
+  </button>
 
-          <button className="nav-button" type="button">
-            <span>▣</span>
-            Opportunities
-          </button>
+  <button
+    className="nav-button"
+    type="button"
+    onClick={() => navigate("/opportunities")}
+  >
+    <span>💼</span>
+    Opportunities
+  </button>
 
-          <button className="nav-button" type="button">
-            <span>♙</span>
-            Mentors
-          </button>
+  <button
+    className="nav-button"
+    type="button"
+    onClick={() => navigate("/mentors")}
+  >
+    <span>👥</span>
+    Mentors
+  </button>
 
-          <button className="nav-button" type="button">
-            <span>◫</span>
-            Portfolio
-          </button>
+  <button
+    className="nav-button"
+    type="button"
+    onClick={() => navigate("/portfolio")}
+  >
+    <span>📁</span>
+    Portfolio
+  </button>
 
-          <button className="nav-button" type="button">
-            <span>⚙</span>
-            Settings
-          </button>
-        </nav>
+  <button
+    className="nav-button"
+    type="button"
+    onClick={() => navigate("/settings")}
+  >
+    <span>⚙️</span>
+    Settings
+  </button>
+</nav>
+
+<div className="sidebar-user">
+  <div className="user-avatar">T</div>
+
+  <div className="user-details">
+    <strong>Tommy</strong>
+    <span>Software Developer</span>
+    <small>Level 18</small>
+  </div>
+</div>
 
         <div className="sidebar-profile">
           <div className="profile-top">

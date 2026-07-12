@@ -6,6 +6,7 @@ import GetStarted from "./pages/GetStarted";
 import AICoach from "./pages/AICoach";
 import SignIn from "./pages/SignIn";
 import LearnersDashboard from "./pages/LearnersDashboard";
+import LearningHub from "./pages/LearningHub";
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +18,10 @@ function App() {
         <Route
   path="/learners-dashboard"
   element={<LearnersDashboard />}
+/>
+<Route
+  path="/learning-hub"
+  element={<LearningHub />}
 />
       </Routes>
     </BrowserRouter>
